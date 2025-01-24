@@ -1,3 +1,4 @@
 node_modules/
 Dockerfile
 .dockerignore
+ecs-task-definition
