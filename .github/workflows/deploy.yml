@@ -14,6 +14,7 @@ env:
   ECS_CLUSTER: my_cluster
   ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
   CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+  SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
 
 jobs:
   deploy:
@@ -31,6 +32,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
+          aws-session-token: ${{ env.SESSION_TOKEN }}
 
       - name: Login to Amazon ECR
         id: login-ecr
