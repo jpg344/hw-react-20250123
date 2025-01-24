@@ -20,3 +20,6 @@ jobs:
 
             - name: Run tests
               run: npm test -- --watchAll=false
+
+            - name: Build Dockerimage
+              run: docker buildx build -t jpg344/react-app-autobuild:latest
