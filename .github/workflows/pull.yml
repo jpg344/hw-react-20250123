@@ -16,4 +16,4 @@ jobs:
               run: docker pull jpg344/react-app-autobuild:latest
 
             - name: Docker image inspect
-              run: docker image inspect jpg344/react-app-test
+              run: docker image inspect jpg344/react-app-autobuild:latest
