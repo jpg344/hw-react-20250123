@@ -12,7 +12,7 @@ env:
   ECR_REPOSITORY: my_ecr
   ECS_SERVICE: my_service
   ECS_CLUSTER: my_cluster
-  ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
+  ECS_TASK_DEFINITION: .aws/task-definition.json
   CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
   SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
 
