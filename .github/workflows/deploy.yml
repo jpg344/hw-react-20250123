@@ -5,7 +5,7 @@ on:
     workflows:
       - Docker image pull
     types:
-      -
+      - completed
 
 env:
   AWS_REGION: eu-central-1
