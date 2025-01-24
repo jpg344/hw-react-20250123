@@ -1,6 +1,11 @@
 name: Docker image pull
 
-on: [push]
+on: 
+    workflow_run:
+        workflows:
+          - Test Pipeline
+        types:
+          - completed
 
 jobs:
     test:
