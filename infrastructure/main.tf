@@ -1,14 +1,3 @@
-terraform { 
-  cloud { 
-    
-    organization = "react-app-githubworkflow" 
-
-    workspaces { 
-      name = "react-app-workspace" 
-    } 
-  } 
-}
-
 provider "aws" {
   region = "eu-central-1"
 }
