@@ -101,6 +101,8 @@ function App() {
             </Button>
           </Modal.Footer>
         </Modal>
+
+        <h1>I'm a new H1!</h1>
       </header>
     </div>
   );
