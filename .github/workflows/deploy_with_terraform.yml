@@ -30,10 +30,10 @@ jobs:
           echo "Terraform Cloud token configured."
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform -chdir=infrastructure init
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform -chdir=infrastructure plan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform -chdir=infrastructure apply -auto-approve
