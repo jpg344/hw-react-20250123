@@ -2,7 +2,7 @@ provider "aws" {
   region = "eu-central-1"
 }
 
-# VPC, Subnet, and Security Group (for simplicity)
+# VPC, Subnet, and Security Group
 resource "aws_vpc" "react_vpc" {
   cidr_block = "10.0.0.0/16"
 }
