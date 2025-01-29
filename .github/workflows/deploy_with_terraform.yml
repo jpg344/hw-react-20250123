@@ -1,4 +1,4 @@
-name: 3.1 Deploy with Terraform (ECS)
+name: A.3 Deploy with Terraform (ECS)
 
 on:
   workflow_dispatch:
