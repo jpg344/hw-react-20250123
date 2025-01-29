@@ -34,9 +34,10 @@ jobs:
       - name: Terraform Apply
         run: terraform -chdir=infrastructure_ec2 apply -auto-approve
 
-      - name: Write IP into Env var
+      - name: Fetch EC2 IP and Set as Environment Variable
         run: |
-          export EC2_IP=$(terraform output -raw ec2_public_ip)
+          EC2_IP=$(terraform output -raw ec2_public_ip)
+          echo "EC2_IP=$EC2_IP" >> $GITHUB_ENV
           echo "The EC2 IP is: $EC2_IP"
 
       - name: Set up Python
@@ -54,35 +55,21 @@ jobs:
           ansible-galaxy collection install community.docker
           pip install docker
 
-      - name: Terraform Refresh
-        run: terraform refresh
-        
-      - name: Fetch EC2 IP
-        run: |
-            EC2_IP=$(terraform output -raw ec2_public_ip)
-            echo "EC2_IP=$EC2_IP" >> $GITHUB_ENV
-
-      - name: Terraform show
-        run: terraform show
-
       - name: Configure SSH Access
         run: |
-            set -x  # Enable debug output
-            mkdir -p ~/.ssh
-            echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
-            
-            # Fetch the EC2 public IP from Terraform outputs
-            EC2_IP=$(terraform output -raw ec2_public_ip)
-            echo "EC2_IP=$EC2_IP" >> $GITHUB_ENV
-            
-            # Add EC2's SSH key to known_hosts
-            ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
-  
-        
+          set -x  # Enable debug output
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          # Use the EC2 IP from the environment variable
+          echo "The EC2 IP is: $EC2_IP"
+          
+          # Add EC2's SSH key to known_hosts
+          ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
+
       - name: Create Inventory
         run: |
-          EC2_IP=$(terraform output -raw ec2_public_ip)
           echo "[react_server]" > inventory.ini
           echo "$EC2_IP ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory.ini
 
