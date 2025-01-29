@@ -8,9 +8,9 @@ resource "aws_vpc" "react_vpc" {
 }
 
 resource "aws_subnet" "react_subnet" {
-  vpc_id     = aws_vpc.react_vpc.id
-  cidr_block = "10.0.1.0/24"
-  map_public_ip_on_launch = true  # Ensure public IP is assigned
+  vpc_id                  = aws_vpc.react_vpc.id
+  cidr_block              = "10.0.1.0/24"
+  map_public_ip_on_launch = true # Ensure public IP is assigned
 }
 
 resource "aws_security_group" "react_sg" {
@@ -28,7 +28,7 @@ resource "aws_security_group" "react_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow SSH access
+    cidr_blocks = ["0.0.0.0/0"] # Allow SSH access
   }
 
   egress {
@@ -59,12 +59,13 @@ resource "aws_route_table_association" "react_rt_assoc" {
 
 # EC2 Instance
 resource "aws_instance" "react_ec2" {
-  ami             = "ami-07eef52105e8a2059"
-  instance_type   = "t2.micro"
-  subnet_id       = aws_subnet.react_subnet.id
-  security_groups = [aws_security_group.react_sg.name]
+  depends_on = [aws_security_group.react_sg]
+  ami                         = "ami-07eef52105e8a2059"
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.react_subnet.id
+  vpc_security_group_ids      = [aws_security_group.react_sg.id]
   associate_public_ip_address = true
-  key_name       = "nginx_c"
+  key_name                    = "nginx_c"
 
   tags = {
     Name = "ReactEC2"
