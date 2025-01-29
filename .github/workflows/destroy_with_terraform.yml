@@ -1,4 +1,4 @@
-name: 4.1 Destroy Infrastructure (ECS)
+name: A.4 Destroy Infrastructure (ECS)
 
 on:
   workflow_dispatch:

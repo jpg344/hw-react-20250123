@@ -1,4 +1,4 @@
-name: 4.2 Destroy Infrastructure (EC2)
+name: B.4 Destroy Infrastructure (EC2)
 
 on:
   workflow_dispatch:
