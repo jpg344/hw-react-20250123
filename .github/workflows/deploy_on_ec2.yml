@@ -61,9 +61,11 @@ jobs:
 
       - name: Create Inventory
         run: |
-          echo "[react_server]" > inventory.ini
-          echo "$(terraform output ec2_public_ip) ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/nginx_c.pem" >> inventory.ini
-
+              EC2_IP=$(terraform output -raw ec2_public_ip)
+              echo "[react_server]" > inventory.ini
+              echo "$EC2_IP ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory.ini
+          
+          
       - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i "$EC2_IP," -u ubuntu --private-key ~/.ssh/id_rsa infrastructure_ec2/ansible_install_docker.yml
+            ansible-playbook -i inventory.ini infrastructure_ec2/ansible_install_docker.yml
