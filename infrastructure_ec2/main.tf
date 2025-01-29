@@ -52,7 +52,7 @@ resource "aws_route_table_association" "react_rt_assoc" {
 
 # EC2 Instance
 resource "aws_instance" "react_ec2" {
-  ami             = "ami-0c02fb55956c7d316"
+  ami             = "ami-07eef52105e8a2059"
   instance_type   = "t2.micro"
   subnet_id       = aws_subnet.react_subnet.id
   security_groups = [aws_security_group.react_sg.name]

@@ -1,9 +1,9 @@
-name: Docker image pull
+name: 2. Docker image pull
 
 on: 
     workflow_run:
         workflows:
-          - Test Pipeline
+          - 1. Test Pipeline
         types:
           - completed
 

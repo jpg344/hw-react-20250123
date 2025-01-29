@@ -1,4 +1,4 @@
-name: 4.1 Destroy Infrastructure (ECS)
+name: 4.2 Destroy Infrastructure (EC2)
 
 on:
   workflow_dispatch:
@@ -26,10 +26,10 @@ jobs:
           echo "Terraform Cloud token configured."
 
       - name: Terraform Init
-        run: terraform -chdir=infrastructure init
+        run: terraform -chdir=infrastructure_ec2 init
 
       - name: Terraform Plan (Destroy)
-        run: terraform -chdir=infrastructure plan -destroy
+        run: terraform -chdir=infrastructure_ec2 plan -destroy
 
       - name: Terraform Destroy
-        run: terraform -chdir=infrastructure destroy -auto-approve
+        run: terraform -chdir=infrastructure_ec2 destroy -auto-approve

@@ -1,7 +1,6 @@
-name: Test Pipeline
+name: 1. Test Pipeline
 
-on:
-  workflow_dispatch:
+on: [push]
 
 jobs:
     test:

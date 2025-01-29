@@ -1,11 +1,7 @@
-name: Deploy with Terraform
+name: 3.1 Deploy with Terraform (ECS)
 
-on: 
-    workflow_run:
-        workflows:
-          - Docker image pull
-        types:
-          - completed
+on:
+  workflow_dispatch:
 
 jobs:
   terraform:

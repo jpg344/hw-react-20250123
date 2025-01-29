@@ -1,4 +1,4 @@
-name: Deploy on EC2
+name: 3.2 Deploy with Terraform (EC2)
 
 on:
     workflow_dispatch:
