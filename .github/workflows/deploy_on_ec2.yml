@@ -45,6 +45,9 @@ jobs:
           echo "EC2_IP=$EC2_IP" >> $GITHUB_ENV
           echo "The EC2 IP is: $EC2_IP"
 
+      - name: Wait for EC2 to be Ready
+        run: sleep 60
+
       - name: Configure SSH Access
         run: |
           set -x  # Enable debug output
