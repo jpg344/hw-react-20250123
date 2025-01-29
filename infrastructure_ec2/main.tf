@@ -64,7 +64,7 @@ resource "aws_instance" "react_ec2" {
   subnet_id       = aws_subnet.react_subnet.id
   security_groups = [aws_security_group.react_sg.name]
   associate_public_ip_address = true
-  key_name       = nginx_c
+  key_name       = "nginx_c"
 
   tags = {
     Name = "ReactEC2"
