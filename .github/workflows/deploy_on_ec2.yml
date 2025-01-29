@@ -34,26 +34,14 @@ jobs:
       - name: Terraform Apply
         run: terraform -chdir=infrastructure_ec2 apply -auto-approve
 
-      - name: Fetch EC2 IP and Set as Environment Variable
+      - name: Write EC2 IP to a File
+        run: terraform output -raw ec2_public_ip > ec2_ip.txt
+
+      - name: Read EC2 IP from File and Set Environment Variable
         run: |
-          EC2_IP=$(terraform output -raw ec2_public_ip)
+          export EC2_IP=$(cat ec2_ip.txt)
           echo "EC2_IP=$EC2_IP" >> $GITHUB_ENV
           echo "The EC2 IP is: $EC2_IP"
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install Ansible
-        run: |
-          python -m pip install --upgrade pip
-          pip install ansible
-
-      - name: Install Ansible Docker Dependencies
-        run: |
-          ansible-galaxy collection install community.docker
-          pip install docker
 
       - name: Configure SSH Access
         run: |
@@ -62,8 +50,8 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
-          # Use the EC2 IP from the environment variable
-          echo "The EC2 IP is: $EC2_IP"
+          # Read EC2 IP from environment variable
+          echo "Using EC2 IP: $EC2_IP"
           
           # Add EC2's SSH key to known_hosts
           ssh-keyscan -H $EC2_IP >> ~/.ssh/known_hosts
