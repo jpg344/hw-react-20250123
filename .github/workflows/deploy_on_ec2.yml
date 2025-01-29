@@ -34,6 +34,11 @@ jobs:
       - name: Terraform Apply
         run: terraform -chdir=infrastructure_ec2 apply -auto-approve
 
+      - name: Write IP into Env var
+        run: |
+          export EC2_IP=$(terraform output -raw ec2_public_ip)
+          echo "The EC2 IP is: $EC2_IP"
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
